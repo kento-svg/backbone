@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Beginning Backbone Twitter Example</title>
+    <link rel='stylesheet' href='css/modern.css'>
+    <link rel='stylesheet' href='css/style.css'>
+    <!-- そのほかのCSS -->
+</head>
+<body class='metrouicss'>
+
+    <!-- プロファイル用のテンプレート -->
+    <script type="text/x-handlebars-template" id="profile-template">
+    <div class='tiles clearfix'>
+        <div class="tile-content">
+            <img src="{{user.profile_image_url}}" class="place-left">
+            <h3 style="margin-bottom: 5px;">{{user.name}}</h3>
+            <p>{{user.description}}</p>
+            <div class="brand">
+                <div class="badge">{{user.followers_count}} Followers</div>
+            </div>
+        </div>
+    </div>
+    </script>
+
+    <div id="app" class="grid">
+        <div class="row">
+            <div class="span8">
+                <!-- HTML コンテンツとdivプレースホルダー -->
+                <div id='timeline' class='timeline-view'>
+                    <h2>My Tweets</h2>
+                </div>
+            </div>
+            <div id="profile" class="profile-view">
+                <!-- プロファイルビュー-->
+            </div>
+        </div>
+    </div>
+
+    <!-- Handlebars テンプレート -->
+<script type="text/x-handlebars-template" id="timeline-template">
+<ul class='listview fluid'>
+    {{#each tweet}}
+    <li>
+        <div class='icon'>
+            <img src='{{user.profile_image.url}}'>
+        </div>
+        <div class='data'>
+            <h4>{{user.name}}</h4>
+            <p>{{formant text}}</p>
+            <p class="timestamp"><i>{{friendlyDate}}</i></p>
+        </div>
+    </li>
+    {{/each}}
+</ul>
+</script>
+
+<!-- 外部ライブラリのインクルード -->
+<script src="js/external/node_modules/underscore/underscore.js>"></script>
+<script src="js/external/node_modules/backbone/backbone.js"></script>
+<script src="js/external/node_modules/jquery/src/jquery.js"></script>
+<script src="js/external/node_modules/handlebars/lib/handlebars.js"></script>
+<script src="js/external/node_modules/moment/moment.js"></script>
+<script src="js/external/dialog.js"></script>
+
+<!-- モデル -->
+<script src="js/app/model/Tweet.js"></script>
+<script src="js/app/collection/Timeline.js"></script>
+<script src="js/app/view/TimelineView.js"></script>
+<script src="js/app/router/AppRouter.js"></script>
+<script src="js/app/view/TimelineView.js"></script>
+<script src="js/app/view/ProfileView.js"></script>
+<script src="js/app/model/Profile.js"></script>
+<script src="js/app/util/Helpers.js"></script>
+<script src="js/app/view/ProfilePopupView.js"></script>
+
+<!-- このアプリケーションのmain -->
+<script src="js/app/app.js"></script>
+
+</body>
+</html>
