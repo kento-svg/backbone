@@ -1,18 +1,18 @@
 /**
  * localhost:8080/timeline でホストされるシンプルなAPI
  */
-var express = require('express');
+var express = require('./external/node_modules/express');
 var app = express();
-var Twit = require('twit');
-var bodyParser = require('body-parser');
+var Twit = require('./external/node_modules/twit');
+var bodyParser = require('./external/node_modules/body-parser');
 var client = null;
 
 function connectToTwitter() {
     client = new Twit({
-        consumer_key: '',
-        consumer_secret: '',
-        access_token: '',
-        access_token_secret: ''
+        consumer_key: 'E4D6hJUdQQT4sEmyzJoqgPlAg',
+        consumer_secret: 'XzwvlTwxVlOF3u9dI3WtUuqEEyTMaBodEDvZxe07Wm8px7a4DL',
+        access_token: '2915455687-tC457XVLe7bccgVXXmkufmbMulCg8XaQiqOmINl',
+        access_token_secret: 'NpmdlT3UqSmlUYbsTzOiKBa80zNayUYfDmtICPcigNvRQ'
     });
 }
 
@@ -44,6 +44,24 @@ app.get('/timeline', function(request, response) {
 
     client.get('statuses/home.timeline', {}, function(err,reply) {
         if(err) {
+            return response.sendStatus(404);
+        }
+        if(reply) {
+            return response.json(reply);
+        }
+    });
+});
+
+
+/**
+ * ユーザーのアカウント設定を取得
+ */
+app.get('/profile', function(request, response) {
+    response.header('Access-Control-Allow-Origin', '*');
+
+    client.get('users/show', {screen_name: 'sugrue'}, function(err,reply) {
+        if(err) {
+            console.log('Error: ' + err);
             response.send(404);
         }
         if(reply) {
@@ -51,6 +69,27 @@ app.get('/timeline', function(request, response) {
         }
     });
 });
+
+/**
+ * 指定されたIDを持つユーザーアカウント設定を取得
+ */
+app.get('/profile/:id', function(request, response) {
+    response.header('Access-Control-Allow-Origin', '*');
+    client.get('users/show', {screen_name: request.params.id},
+        function(err, reply) {
+            if(err) {
+                console.log('Error: ' + err);
+                response.send(404);
+            }
+            if(reply) {
+                response.json(reply);
+            }
+        }
+    );
+})
+
+app.use(allowCrossDomain);
+app.use(bodyParser());
 
 // ポート8080でAPIを起動
 app.listen(8080);
