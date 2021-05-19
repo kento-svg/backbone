@@ -22,57 +22,72 @@
     </div>
     </script>
 
+        <!-- Handlebars テンプレート -->
+    <script type="text/x-handlebars-template" id="timeline-template">
+    <ul class='listview fluid'>
+        {{#each tweet}}
+        <li>
+            <div class='icon'>
+                <img src='{{user.profile_image_url}}'>
+            </div>
+            <div class='data'>
+                <h4>{{user.name}}</h4>
+                <p>{{format text}}</p>
+                <p class="timestamp"><i>{{friendlyDate}}</i></p>
+            </div>
+        </li>
+        {{/each}}
+    </ul>
+    </script>
+
     <div id="app" class="grid">
         <div class="row">
             <div class="span8">
                 <!-- HTML コンテンツとdivプレースホルダー -->
-                <div id='timeline' class='timeline-view'>
+                <div id="timeline" class="timeline-view">
                     <h2>My Tweets</h2>
                 </div>
             </div>
-            <div id="profile" class="profile-view">
-                <!-- プロファイルビュー-->
+            <div class="span4">
+                <div id="profile" class="profile-view">
+                    <!-- プロファイルビュー-->
+                </div>
+                <div class="search" id="search-view">
+                    <form>
+                        <div class="input-control text">
+                            <input type="text" id="searchbox" autofocus="" placeholder="I'm looking for..">
+                        </div>
+                        <button class="bg-color-blue" id="searchbutton">Search</button>
+                    </form>
+                </div>
             </div>
+            
         </div>
     </div>
 
-    <!-- Handlebars テンプレート -->
-<script type="text/x-handlebars-template" id="timeline-template">
-<ul class='listview fluid'>
-    {{#each tweet}}
-    <li>
-        <div class='icon'>
-            <img src='{{user.profile_image.url}}'>
-        </div>
-        <div class='data'>
-            <h4>{{user.name}}</h4>
-            <p>{{formant text}}</p>
-            <p class="timestamp"><i>{{friendlyDate}}</i></p>
-        </div>
-    </li>
-    {{/each}}
-</ul>
-</script>
-
 <!-- 外部ライブラリのインクルード -->
-<script src="js/external/node_modules/underscore/underscore.js>"></script>
+<script src="js/external/node_modules/jquery/dist/jquery.js"></script>
+<script src="js/external/node_modules/underscore/underscore.js"></script>
 <script src="js/external/node_modules/backbone/backbone.js"></script>
-<script src="js/external/node_modules/jquery/src/jquery.js"></script>
-<script src="js/external/node_modules/handlebars/lib/handlebars.js"></script>
+<script src="js/external/node_modules/handlebars/dist/handlebars.js"></script>
 <script src="js/external/node_modules/moment/moment.js"></script>
-<script src="js/external/dialog.js"></script>
+<script src="js/external/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
 
 <!-- モデル -->
+<script src="js/app/util/Helpers.js"></script>
 <script src="js/app/model/Tweet.js"></script>
+<script src="js/app/model/Profile.js"></script>
+<script src="js/app/model/Search.js"></script>
+
 <script src="js/app/collection/Timeline.js"></script>
-<script src="js/app/view/TimelineView.js"></script>
-<script src="js/app/router/AppRouter.js"></script>
+
 <script src="js/app/view/TimelineView.js"></script>
 <script src="js/app/view/ProfileView.js"></script>
-<script src="js/app/model/Profile.js"></script>
-<script src="js/app/util/Helpers.js"></script>
 <script src="js/app/view/ProfilePopupView.js"></script>
+<script src="js/app/view/SearchView.js"></script>
+<script src="js/app/view/ResultsView.js"></script>
 
+<script src="js/app/router/AppRouter.js"></script>
 <!-- このアプリケーションのmain -->
 <script src="js/app/app.js"></script>
 

@@ -1,8 +1,8 @@
 var com = com || {};
 com.apress = com.apress || {};
-com.apress.model = com.apress.model || {};
+com.apress.collection = com.apress.collection || {};
 
-com.apress.collection = Backbone.Collection.extend({
+com.apress.collection.Timeline = Backbone.Collection.extend({
 
     // このコレクションで使用するモデル
     model: com.apress.model.Tweet,

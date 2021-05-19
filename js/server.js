@@ -42,9 +42,9 @@ app.use(bodyParser.urlencoded({
 app.get('/timeline', function(request, response) {
     response.header('Access-Control-Allow-Origin', '*');
 
-    client.get('statuses/home.timeline', {}, function(err,reply) {
+    client.get('statuses/home_timeline', {}, function(err,reply) {
         if(err) {
-            return response.sendStatus(404);
+            return response.send(404);
         }
         if(reply) {
             return response.json(reply);
@@ -86,7 +86,28 @@ app.get('/profile/:id', function(request, response) {
             }
         }
     );
-})
+});
+
+/**
+ * 指定されたクエリを使って検索を実行
+ */
+app.get('/search/:query', function(request, response) {
+    response.header('Access-Control-Allow-Origin', '*');
+
+    // 検索するキーワード
+    var searchTerm = request.params.query;
+
+    client.get('search/tweet', {q: searchTerm, count1: 100, function(err, reply) {
+        if(err) {
+            console.log('Error: ' + err);
+            response.send(404);
+        }
+        if(reply) {
+            response.json(reply);
+        }
+    }});
+});
+
 
 app.use(allowCrossDomain);
 app.use(bodyParser());

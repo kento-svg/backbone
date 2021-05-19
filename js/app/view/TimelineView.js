@@ -18,8 +18,8 @@ com.apress.view.TimelineView = Backbone.View.extend({
         self.render();
 
         // fetchの呼び出しにより，resetイベントを強制的に発行
-        self.timeline.fetch({result:true});
-        self.listenTo(self.timeline, 'result', self.render);
+        self.timeline.fetch({reset:true});
+        self.listenTo(self.timeline, 'reset', self.render);
     },
     render: function() {
         var self = this;
